@@ -5,7 +5,8 @@
   "license": "MIT",
   "scripts": {
     "start": "node ./dist/server.js",
-    "start:dev": "nodemon ./dist/server.js"
+    "start:dev": "nodemon ./dist/server.js",
+    "migrate": "npx prisma migrate dev"
   },
   "devDependencies": {
     "@types/cookie-parser": "^1.4.7",
