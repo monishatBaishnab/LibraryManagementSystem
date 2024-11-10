@@ -13,15 +13,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Author {
-  authorId    String    @id @default(uuid())
-  name        String    @db.VarChar(255)
-  bio         String
-  dateOfBirth DateTime?
-
-  @@map("authors")
-}
-
 model Member {
   memberId       String        @id @default(uuid())
   name           String        @db.VarChar(255)

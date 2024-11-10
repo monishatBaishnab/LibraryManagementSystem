@@ -4,7 +4,7 @@ import cookieParser from "cookie-parser";
 import httpStatus from "http-status";
 import globalErrorHandler from "./utils/globalErrorhandler";
 import notFoundHandler from "./utils/notFoundHandler";
-import catchAsync from "./utils/catchAsync";
+import { appRoutes } from "./routes/routes";
 
 const app = express();
 
@@ -17,6 +17,7 @@ app.use(
 );
 app.use(cookieParser());
 
+// Route for check server health
 app.get("/", (req: Request, res: Response, next: NextFunction) => {
   res.status(httpStatus.OK).send({
     success: true,
@@ -25,8 +26,13 @@ app.get("/", (req: Request, res: Response, next: NextFunction) => {
   });
 });
 
+// Call the app routes
+app.use("/api", appRoutes);
+
+// Path Error Handler
 app.use("*", notFoundHandler);
 
+// Global Error Handler
 app.use(globalErrorHandler);
 
 export default app;
