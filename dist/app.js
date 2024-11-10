@@ -7,6 +7,8 @@ const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const http_status_1 = __importDefault(require("http-status"));
+const globalErrorhandler_1 = __importDefault(require("./utils/globalErrorhandler"));
+const notFoundHandler_1 = __importDefault(require("./utils/notFoundHandler"));
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
 app.use((0, cors_1.default)({
@@ -21,4 +23,6 @@ app.get("/", (req, res, next) => {
         message: "Library Management System running smoothly...",
     });
 });
+app.use("*", notFoundHandler_1.default);
+app.use(globalErrorhandler_1.default);
 exports.default = app;
