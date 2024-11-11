@@ -8,6 +8,7 @@ const globalErrorHandler = (err, req, res, next) => {
     const success = false;
     const status = (err === null || err === void 0 ? void 0 : err.httpStatus) || http_status_1.default.BAD_REQUEST;
     const message = (err === null || err === void 0 ? void 0 : err.name) || "Something want wrong.";
+    console.log(err);
     res.status(status).send({
         success,
         status,

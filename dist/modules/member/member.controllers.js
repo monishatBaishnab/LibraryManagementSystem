@@ -19,7 +19,7 @@ const sendResponse_1 = __importDefault(require("../../utils/sendResponse"));
 const member_services_1 = require("./member.services");
 // Controller function for find all members
 const findAll = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield member_services_1.MemberServices.findAllFromDB();
+    const result = yield member_services_1.MemberServices.findAllFromDB(req.query);
     (0, sendResponse_1.default)(res, {
         success: true,
         status: http_status_1.default.OK,

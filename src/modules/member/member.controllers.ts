@@ -5,7 +5,7 @@ import { MemberServices } from "./member.services";
 
 // Controller function for find all members
 const findAll = catchAsync(async (req, res) => {
-  const result = await MemberServices.findAllFromDB();
+  const result = await MemberServices.findAllFromDB(req.query);
 
   sendResponse(res, {
     success: true,

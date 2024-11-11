@@ -1,9 +1,24 @@
-import { Member } from "@prisma/client";
+import { Member, Prisma } from "@prisma/client";
 import prisma from "../../utils/prismaClient";
+import { filterKeys, optionKeys, searchFields } from "./member.constants";
+import sanitizeQueries from "../../utils/sanitizeFilters";
+import calculatePaginate from "../../utils/calculatePaginate";
+import whereConditionsBuilder from "../../utils/whereConditionsBuilder";
 
 // Function for fetch all members data from database
-const findAllFromDB = async () => {
-  const members = await prisma.member.findMany();
+const findAllFromDB = async (query: Record<string, unknown>) => {
+  const paginateOptions = sanitizeQueries(query, optionKeys);
+  const { limit, skip, sortBy, sortOrder } = calculatePaginate(paginateOptions);
+  const whereConditions = whereConditionsBuilder(query, searchFields, filterKeys);
+
+  const members = await prisma.member.findMany({
+    where: {
+      AND: whereConditions,
+    },
+    skip: skip,
+    take: limit,
+    orderBy: { [sortBy]: sortOrder },
+  });
 
   return members;
 };

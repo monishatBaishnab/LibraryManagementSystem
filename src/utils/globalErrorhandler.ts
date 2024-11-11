@@ -5,7 +5,7 @@ const globalErrorHandler = (err: any, req: Request, res: Response, next: NextFun
   const success: boolean = false;
   const status: number = err?.httpStatus || httpStatus.BAD_REQUEST;
   const message: string = err?.name || "Something want wrong.";
-
+console.log(err);
   res.status(status).send({
     success,
     status,
