@@ -14,24 +14,24 @@ datasource db {
 }
 
 model Member {
-  memberId       String        @id @default(uuid())
-  name           String        @db.VarChar(255)
-  email          String        @unique @db.VarChar(255)
-  phone          String        @db.VarChar(20)
-  membershipDate DateTime      @default(now())
-  borrowRecord   BorrowRecord?
+  memberId       String         @id @default(uuid())
+  name           String         @db.VarChar(255)
+  email          String         @unique @db.VarChar(255)
+  phone          String         @db.VarChar(20)
+  membershipDate DateTime       @default(now())
+  borrowRecord   BorrowRecord[]
 
   @@map("members")
 }
 
 model Book {
-  bookId          String        @id @default(uuid())
-  title           String        @db.VarChar(255)
-  genre           String        @db.VarChar(255)
+  bookId          String         @id @default(uuid())
+  title           String         @db.VarChar(255)
+  genre           String         @db.VarChar(255)
   publishedYear   Int
   totalCopies     Int
   availableCopies Int
-  borrowRecord    BorrowRecord?
+  borrowRecord    BorrowRecord[]
 
   @@map("books")
 }
@@ -40,9 +40,9 @@ model BorrowRecord {
   borrowId   String    @id @default(uuid())
   borrowDate DateTime  @default(now())
   returnDate DateTime?
-  bookId     String    @unique
+  bookId     String
   book       Book      @relation(fields: [bookId], references: [bookId])
-  memberId   String    @unique
+  memberId   String
   member     Member    @relation(fields: [memberId], references: [memberId])
 
   @@map("borrow_records")

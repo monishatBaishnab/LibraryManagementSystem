@@ -16,6 +16,7 @@ exports.BorrowControllers = void 0;
 const http_status_1 = __importDefault(require("http-status"));
 const catchAsync_1 = __importDefault(require("../../utils/catchAsync"));
 const sendResponse_1 = __importDefault(require("../../utils/sendResponse"));
+const borrow_services_1 = require("./borrow.services");
 // Controller function for find all borrows
 const findAll = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const result = "";
@@ -27,19 +28,18 @@ const findAll = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0
     });
 }));
 // Controller function for create new borrow
-const create = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = "";
+const borrowBook = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield borrow_services_1.BorrowServices.borrowBookFromDB(req.body);
     (0, sendResponse_1.default)(res, {
         success: true,
-        status: http_status_1.default.CREATED,
+        status: http_status_1.default.OK,
         message: "Book borrowed successfully",
         data: result,
     });
 }));
 // Controller function for update existing borrow
-const update = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { id } = req.params;
-    const result = "";
+const returnBorrowedBook = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield borrow_services_1.BorrowServices.returnBorrowedBookFromDB(req.body);
     (0, sendResponse_1.default)(res, {
         success: true,
         status: http_status_1.default.OK,
@@ -49,6 +49,6 @@ const update = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0,
 }));
 exports.BorrowControllers = {
     findAll,
-    create,
-    update,
+    borrowBook,
+    returnBorrowedBook,
 };

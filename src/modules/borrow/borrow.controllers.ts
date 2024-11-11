@@ -1,6 +1,7 @@
 import httpStatus from "http-status";
 import catchAsync from "../../utils/catchAsync";
 import sendResponse from "../../utils/sendResponse";
+import { BorrowServices } from "./borrow.services";
 
 // Controller function for find all borrows
 const findAll = catchAsync(async (req, res) => {
@@ -15,21 +16,20 @@ const findAll = catchAsync(async (req, res) => {
 });
 
 // Controller function for create new borrow
-const create = catchAsync(async (req, res) => {
-  const result = "";
+const borrowBook = catchAsync(async (req, res) => {
+  const result = await BorrowServices.borrowBookFromDB(req.body);
 
   sendResponse(res, {
     success: true,
-    status: httpStatus.CREATED,
+    status: httpStatus.OK,
     message: "Book borrowed successfully",
     data: result,
   });
 });
 
 // Controller function for update existing borrow
-const update = catchAsync(async (req, res) => {
-  const { id } = req.params;
-  const result = "";
+const returnBorrowedBook = catchAsync(async (req, res) => {
+  const result = await BorrowServices.returnBorrowedBookFromDB(req.body);
 
   sendResponse(res, {
     success: true,
@@ -41,6 +41,6 @@ const update = catchAsync(async (req, res) => {
 
 export const BorrowControllers = {
     findAll,
-    create,
-    update,
+    borrowBook,
+    returnBorrowedBook,
 }
