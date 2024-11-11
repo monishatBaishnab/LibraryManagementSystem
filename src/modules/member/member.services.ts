@@ -1,14 +1,12 @@
 import { Member, Prisma } from "@prisma/client";
 import prisma from "../../utils/prismaClient";
-import { filterKeys, optionKeys, searchFields } from "./member.constants";
-import sanitizeQueries from "../../utils/sanitizeFilters";
+import { filterKeys, searchFields } from "./member.constants";
 import calculatePaginate from "../../utils/calculatePaginate";
 import whereConditionsBuilder from "../../utils/whereConditionsBuilder";
 
 // Function for fetch all members data from database
 const findAllFromDB = async (query: Record<string, unknown>) => {
-  const paginateOptions = sanitizeQueries(query, optionKeys);
-  const { limit, skip, sortBy, sortOrder } = calculatePaginate(paginateOptions);
+  const { limit, skip, sortBy, sortOrder } = calculatePaginate(query);
   const whereConditions = whereConditionsBuilder(query, searchFields, filterKeys);
 
   const members = await prisma.member.findMany({
@@ -17,7 +15,7 @@ const findAllFromDB = async (query: Record<string, unknown>) => {
     },
     skip: skip,
     take: limit,
-    orderBy: { [sortBy]: sortOrder },
+    orderBy: { [sortBy ?? 'name']: sortOrder },
   });
 
   return members;
@@ -25,11 +23,11 @@ const findAllFromDB = async (query: Record<string, unknown>) => {
 
 // Function for fetch single member data from db using member id
 const findByIdFromDB = async (id: string) => {
-  const members = await prisma.member.findUniqueOrThrow({
+  const member = await prisma.member.findUniqueOrThrow({
     where: { memberId: id },
   });
 
-  return members;
+  return member;
 };
 
 // Function for create new member in database

@@ -13,7 +13,7 @@ const calculatePaginate = (query) => {
     const page = Number((options === null || options === void 0 ? void 0 : options.page) || 1);
     const limit = Number((options === null || options === void 0 ? void 0 : options.limit) || 10);
     const skip = (page - 1) * limit;
-    const sortBy = (options === null || options === void 0 ? void 0 : options.sortBy) || "name";
+    const sortBy = options === null || options === void 0 ? void 0 : options.sortBy;
     const sortOrder = (options === null || options === void 0 ? void 0 : options.sortOrder) || "asc";
     return { page, limit, skip, sortBy, sortOrder };
 };

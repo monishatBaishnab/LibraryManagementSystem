@@ -19,7 +19,7 @@ const calculatePaginate = (query: Record<string, unknown>): TResponseOptions => 
   const page: number = Number(options?.page || 1);
   const limit: number = Number(options?.limit || 10);
   const skip: number = (page - 1) * limit;
-  const sortBy: string = (options?.sortBy as string) || "name";
+  const sortBy: string = (options?.sortBy as string);
   const sortOrder: string = (options?.sortOrder as string) || "asc";
 
   return { page, limit, skip, sortBy, sortOrder };
