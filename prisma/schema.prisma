@@ -40,6 +40,7 @@ model BorrowRecord {
   borrowId   String    @id @default(uuid())
   borrowDate DateTime  @default(now())
   returnDate DateTime?
+  dueDate    DateTime
   bookId     String
   book       Book      @relation(fields: [bookId], references: [bookId])
   memberId   String

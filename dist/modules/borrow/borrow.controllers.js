@@ -18,12 +18,13 @@ const catchAsync_1 = __importDefault(require("../../utils/catchAsync"));
 const sendResponse_1 = __importDefault(require("../../utils/sendResponse"));
 const borrow_services_1 = require("./borrow.services");
 // Controller function for find all borrows
-const findAll = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = "";
+const findOverDueBorrows = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    var _a;
+    const result = yield borrow_services_1.BorrowServices.findOverDueBorrowsFromDB();
     (0, sendResponse_1.default)(res, {
         success: true,
         status: http_status_1.default.OK,
-        message: "Borrows retrieved successfully.",
+        message: ((_a = Object.keys(result)) === null || _a === void 0 ? void 0 : _a.length) ? "Overdue borrow list fetched." : "No overdue books",
         data: result,
     });
 }));
@@ -48,7 +49,7 @@ const returnBorrowedBook = (0, catchAsync_1.default)((req, res) => __awaiter(voi
     });
 }));
 exports.BorrowControllers = {
-    findAll,
+    findOverDueBorrows,
     borrowBook,
     returnBorrowedBook,
 };

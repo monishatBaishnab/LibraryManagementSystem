@@ -6,7 +6,9 @@
   "scripts": {
     "start": "node ./dist/server.js",
     "start:dev": "nodemon ./dist/server.js",
-    "migrate": "npx prisma migrate dev"
+    "migrate": "npx prisma migrate dev",
+    "prod": "NODE_ENV=production node ./dist/server.js",
+    "postinstall": "prisma generate"
   },
   "devDependencies": {
     "@types/cookie-parser": "^1.4.7",

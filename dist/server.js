@@ -17,7 +17,7 @@ const config_1 = require("./config");
 let server;
 const main = () => __awaiter(void 0, void 0, void 0, function* () {
     server = app_1.default.listen(config_1.localConfig.port, () => {
-        console.log('Server listening on port: ', config_1.localConfig.port);
+        console.log("Server listening on port: ", config_1.localConfig.port);
     });
 });
 main();

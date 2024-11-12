@@ -4,13 +4,13 @@ import sendResponse from "../../utils/sendResponse";
 import { BorrowServices } from "./borrow.services";
 
 // Controller function for find all borrows
-const findAll = catchAsync(async (req, res) => {
-  const result = "";
+const findOverDueBorrows = catchAsync(async (req, res) => {
+  const result = await BorrowServices.findOverDueBorrowsFromDB();
 
   sendResponse(res, {
     success: true,
     status: httpStatus.OK,
-    message: "Borrows retrieved successfully.",
+    message: Object.keys(result)?.length ? "Overdue borrow list fetched." : "No overdue books",
     data: result,
   });
 });
@@ -40,7 +40,7 @@ const returnBorrowedBook = catchAsync(async (req, res) => {
 });
 
 export const BorrowControllers = {
-    findAll,
-    borrowBook,
-    returnBorrowedBook,
-}
+  findOverDueBorrows,
+  borrowBook,
+  returnBorrowedBook,
+};
